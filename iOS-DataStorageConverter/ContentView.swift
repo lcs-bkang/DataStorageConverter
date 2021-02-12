@@ -12,10 +12,11 @@ struct ContentView: View {
     // MARK: Stored properties
     @State private var fromUnit: DataStorageUnit = .bit
     @State private var input: String = ""
+    @State private var toUnit: DataStorageUnit = .bit
 
     // MARK: Computed properties
     private var output: String {
-        return "You typed in \(input) and selected \(fromUnit)"
+        return "You typed in \(input) and selected \(fromUnit) for from and \(toUnit) for to"
     }
     
     var body: some View {
@@ -33,6 +34,17 @@ struct ContentView: View {
 
             TextField("e.g.: 1024", text: $input)
                 .keyboardType(.numberPad)
+            
+            Picker("To unit:", selection: $toUnit) {
+                Text(DataStorageUnit.bit.rawValue).tag(DataStorageUnit.bit)
+                Text(DataStorageUnit.nibble.rawValue).tag(DataStorageUnit.nibble)
+                Text(DataStorageUnit.byte.rawValue).tag(DataStorageUnit.byte)
+                Text(DataStorageUnit.kilobyte.rawValue).tag(DataStorageUnit.kilobyte)
+                Text(DataStorageUnit.megabyte.rawValue).tag(DataStorageUnit.megabyte)
+                Text(DataStorageUnit.gigabyte.rawValue).tag(DataStorageUnit.gigabyte)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+
 
             Text(output)
         }
